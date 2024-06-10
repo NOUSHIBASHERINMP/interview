@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Products</h1>
+    <div id="product-list"></div>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: 'index.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    var productList = $('#product-list');
+                    productList.empty();
+                    $.each(data, function(index, item) {
+                        productList.append('<p><h3>ID: ' + item.id + ', Name: ' + item.name +', Price: '+item.price+', Category: '+item.category+', Sub Category: '+item.subcategory+', Color: '+item.color+', Brand: '+item.brand+ '</h3></p>');
+                    });
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $('#product-list').html('<p style="color:red;">Error fetching data: ' + textStatus + '</p>');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
